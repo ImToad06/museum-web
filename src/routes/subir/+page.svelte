@@ -81,11 +81,10 @@
 					>Fecha de Creación</label
 				>
 				<input
-					type="text"
+					type="date"
 					id="fecha"
 					name="fecha"
 					required
-					placeholder="Ej: 1889 o 12 de Marzo, 1920"
 					class="w-full rounded-md border border-stone-300 px-4 py-2 transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
 				/>
 			</div>
