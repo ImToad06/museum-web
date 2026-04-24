@@ -94,7 +94,7 @@
 			<span class="mb-1 block text-sm font-medium text-stone-700">Imagen de la Obra</span>
 			<label
 				for="imagen"
-				class="mt-1 flex cursor-pointer justify-center rounded-md border-2 border-dashed px-6 pb-6 pt-5 transition-colors
+				class="mt-1 flex cursor-pointer justify-center rounded-md border-2 border-dashed px-6 pt-5 pb-6 transition-colors
         {isDragging ? 'border-stone-600 bg-stone-50' : 'border-stone-300 hover:border-stone-400'}"
 				ondragover={handleDragOver}
 				ondragenter={handleDragOver}
