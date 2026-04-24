@@ -42,11 +42,12 @@
 		</div>
 	{:else}
 		<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-			{#each data.obras as obra}
+			{#each data.obras as obra (obra.id)}
 				<button
 					onclick={() => openModal(obra)}
 					class="group overflow-hidden rounded-lg border border-stone-200 bg-white text-left shadow-sm transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
 				>
+
 					<article>
 						<div class="aspect-[4/3] overflow-hidden bg-stone-200">
 							<img
@@ -59,7 +60,13 @@
 							<h3 class="font-serif text-xl font-bold text-stone-800">{obra.titulo}</h3>
 							<div class="flex flex-col text-sm text-stone-600">
 								<span class="font-medium">{obra.autor}</span>
-								<span>{new Date(obra.fecha).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+								<span
+									>{new Date(obra.fecha).toLocaleDateString('es-CO', {
+										year: 'numeric',
+										month: 'long',
+										day: 'numeric'
+									})}</span
+								>
 							</div>
 						</div>
 					</article>
@@ -85,7 +92,7 @@
 		>
 			<button
 				onclick={closeModal}
-				class="absolute right-4 top-4 z-10 rounded-full bg-stone-900/50 p-2 text-white transition-colors hover:bg-stone-900"
+				class="absolute top-4 right-4 z-10 rounded-full bg-stone-900/50 p-2 text-white transition-colors hover:bg-stone-900"
 				aria-label="Cerrar modal"
 			>
 				<svg
@@ -117,11 +124,15 @@
 					<div class="mt-4 space-y-2">
 						<p class="text-lg font-medium text-stone-700">{selectedObra.autor}</p>
 						<p class="text-stone-500">
-							{new Date(selectedObra.fecha).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}
+							{new Date(selectedObra.fecha).toLocaleDateString('es-CO', {
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric'
+							})}
 						</p>
 					</div>
 					<div class="mt-8 border-t border-stone-100 pt-6">
-						<p class="text-sm italic text-stone-400">Parte de la colección digital permanente.</p>
+						<p class="text-sm text-stone-400 italic">Parte de la colección digital permanente.</p>
 					</div>
 				</div>
 			</div>
