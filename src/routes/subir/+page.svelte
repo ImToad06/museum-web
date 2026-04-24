@@ -1,5 +1,36 @@
 <script lang="ts">
 	let { form } = $props();
+	let isDragging = $state(false);
+	let fileInput: HTMLInputElement | undefined = $state();
+	let fileName = $state('');
+
+	function handleDragOver(e: DragEvent) {
+		e.preventDefault();
+		isDragging = true;
+	}
+
+	function handleDragLeave() {
+		isDragging = false;
+	}
+
+	function handleDrop(e: DragEvent) {
+		e.preventDefault();
+		isDragging = false;
+
+		if (e.dataTransfer?.files && e.dataTransfer.files.length > 0) {
+			if (fileInput) {
+				fileInput.files = e.dataTransfer.files;
+				fileName = e.dataTransfer.files[0].name;
+			}
+		}
+	}
+
+	function handleFileChange(e: Event) {
+		const target = e.target as HTMLInputElement;
+		if (target.files && target.files.length > 0) {
+			fileName = target.files[0].name;
+		}
+	}
 </script>
 
 <div class="mx-auto max-w-2xl rounded-lg border border-stone-200 bg-white p-8 shadow-sm">
@@ -61,11 +92,15 @@
 		</div>
 
 		<div>
-			<label for="imagen" class="mb-1 block text-sm font-medium text-stone-700"
-				>Imagen de la Obra</label
-			>
-			<div
-				class="mt-1 flex justify-center rounded-md border-2 border-dashed border-stone-300 px-6 pt-5 pb-6 transition-colors hover:border-stone-400"
+			<span class="mb-1 block text-sm font-medium text-stone-700">Imagen de la Obra</span>
+			<label
+				for="imagen"
+				class="mt-1 flex cursor-pointer justify-center rounded-md border-2 border-dashed px-6 pb-6 pt-5 transition-colors
+        {isDragging ? 'border-stone-600 bg-stone-50' : 'border-stone-300 hover:border-stone-400'}"
+				ondragover={handleDragOver}
+				ondragenter={handleDragOver}
+				ondragleave={handleDragLeave}
+				ondrop={handleDrop}
 			>
 				<div class="space-y-1 text-center">
 					<svg
@@ -83,25 +118,30 @@
 						/>
 					</svg>
 					<div class="flex text-sm text-stone-600">
-						<label
-							for="imagen"
-							class="relative cursor-pointer rounded-md bg-white font-medium text-stone-900 focus-within:ring-2 focus-within:ring-stone-500 focus-within:ring-offset-2 focus-within:outline-none hover:text-stone-700"
-						>
-							<span>Subir un archivo</span>
-							<input
-								id="imagen"
-								name="imagen"
-								type="file"
-								accept="image/*"
-								required
-								class="sr-only"
-							/>
-						</label>
-						<p class="pl-1">o arrastrar y soltar</p>
+						<span class="relative rounded-md font-medium text-stone-900 focus-within:outline-none">
+							{#if fileName}
+								Archivo seleccionado: <span class="text-stone-700">{fileName}</span>
+							{:else}
+								Haz clic para subir un archivo
+							{/if}
+						</span>
+						{#if !fileName}
+							<p class="pl-1 text-stone-500">o arrastrar y suelta</p>
+						{/if}
 					</div>
 					<p class="text-xs text-stone-500">PNG, JPG, GIF hasta 10MB</p>
 				</div>
-			</div>
+				<input
+					id="imagen"
+					name="imagen"
+					type="file"
+					accept="image/*"
+					required
+					class="sr-only"
+					bind:this={fileInput}
+					onchange={handleFileChange}
+				/>
+			</label>
 		</div>
 
 		<div class="pt-4">
