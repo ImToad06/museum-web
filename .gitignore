@@ -28,3 +28,4 @@ test-results
 # IDEs
 .vscode/
 .idea/
+\n# Museo Digital\nmuseum.db\nstatic/uploads/*\n!static/uploads/.gitkeep
