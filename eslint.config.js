@@ -39,6 +39,10 @@ export default defineConfig(
 	{
 		// Override or add rule settings here, such as:
 		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			// Standard <a href> tags are the correct way to navigate in SvelteKit.
+			// This rule incorrectly flags internal links.
+			'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 );

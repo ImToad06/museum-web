@@ -33,11 +33,13 @@
 	}
 </script>
 
-<div class="mx-auto max-w-2xl rounded-lg border border-stone-200 bg-white p-8 shadow-sm">
-	<h2 class="mb-6 font-serif text-3xl font-bold text-stone-800">Subir Nueva Obra de Arte</h2>
+<div class="mx-auto max-w-2xl rounded-lg border border-stone-200 bg-white p-6 shadow-sm md:p-8">
+	<h2 class="mb-4 font-serif text-2xl font-bold text-stone-800 md:mb-6 md:text-3xl">
+		Subir Nueva Obra de Arte
+	</h2>
 
-	<p class="mb-8 text-stone-600">
-		Complete los siguientes campos para agregar una nueva pieza a la colección del museo digital.
+	<p class="mb-6 text-stone-600 md:mb-8">
+		Complete los siguientes campos para agregar una nueva pieza a la colección del MAMB.
 	</p>
 
 	{#if form?.error}
@@ -46,7 +48,7 @@
 		</div>
 	{/if}
 
-	<form method="POST" enctype="multipart/form-data" class="space-y-6">
+	<form method="POST" enctype="multipart/form-data" class="space-y-5 md:space-y-6">
 		<div>
 			<label for="titulo" class="mb-1 block text-sm font-medium text-stone-700"
 				>Título de la Obra</label
@@ -57,11 +59,11 @@
 				name="titulo"
 				required
 				placeholder="Ej: El Grito"
-				class="w-full rounded-md border border-stone-300 px-4 py-2 transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
+				class="w-full rounded-md border border-stone-300 px-4 py-2 text-base transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
 			/>
 		</div>
 
-		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+		<div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
 			<div>
 				<label for="autor" class="mb-1 block text-sm font-medium text-stone-700"
 					>Nombre del Autor</label
@@ -72,7 +74,7 @@
 					name="autor"
 					required
 					placeholder="Ej: Vincent van Gogh"
-					class="w-full rounded-md border border-stone-300 px-4 py-2 transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
+					class="w-full rounded-md border border-stone-300 px-4 py-2 text-base transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
 				/>
 			</div>
 
@@ -85,7 +87,7 @@
 					id="fecha"
 					name="fecha"
 					required
-					class="w-full rounded-md border border-stone-300 px-4 py-2 transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
+					class="w-full rounded-md border border-stone-300 px-4 py-2 text-base transition-all outline-none focus:border-stone-500 focus:ring-stone-500"
 				/>
 			</div>
 		</div>
@@ -94,7 +96,7 @@
 			<span class="mb-1 block text-sm font-medium text-stone-700">Imagen de la Obra</span>
 			<label
 				for="imagen"
-				class="mt-1 flex cursor-pointer justify-center rounded-md border-2 border-dashed px-6 pt-5 pb-6 transition-colors
+				class="mt-1 flex cursor-pointer justify-center rounded-md border-2 border-dashed px-4 pt-5 pb-6 transition-colors md:px-6
         {isDragging ? 'border-stone-600 bg-stone-50' : 'border-stone-300 hover:border-stone-400'}"
 				ondragover={handleDragOver}
 				ondragenter={handleDragOver}
@@ -103,7 +105,7 @@
 			>
 				<div class="space-y-1 text-center">
 					<svg
-						class="mx-auto h-12 w-12 text-stone-400"
+						class="mx-auto h-10 w-10 text-stone-400 md:h-12 md:w-12"
 						stroke="currentColor"
 						fill="none"
 						viewBox="0 0 48 48"
@@ -116,7 +118,9 @@
 							stroke-linejoin="round"
 						/>
 					</svg>
-					<div class="flex text-sm text-stone-600">
+					<div
+						class="flex flex-col items-center text-sm text-stone-600 sm:flex-row sm:justify-center"
+					>
 						<span class="relative rounded-md font-medium text-stone-900 focus-within:outline-none">
 							{#if fileName}
 								Archivo seleccionado: <span class="text-stone-700">{fileName}</span>
@@ -125,7 +129,7 @@
 							{/if}
 						</span>
 						{#if !fileName}
-							<p class="pl-1 text-stone-500">o arrastrar y suelta</p>
+							<p class="text-stone-500 sm:pl-1">o arrastrar y suelta</p>
 						{/if}
 					</div>
 					<p class="text-xs text-stone-500">PNG, JPG, GIF hasta 10MB</p>
@@ -143,10 +147,10 @@
 			</label>
 		</div>
 
-		<div class="pt-4">
+		<div class="pt-2 md:pt-4">
 			<button
 				type="submit"
-				class="w-full rounded-md bg-stone-900 px-4 py-3 font-bold text-stone-50 shadow-sm transition-colors hover:bg-stone-800"
+				class="min-h-[48px] w-full rounded-md bg-stone-900 px-4 py-3 text-base font-bold text-stone-50 shadow-sm transition-colors hover:bg-stone-800"
 			>
 				Guardar en la Colección
 			</button>

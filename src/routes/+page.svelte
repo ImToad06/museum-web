@@ -1,141 +1,118 @@
-<script lang="ts">
-	let { data } = $props();
-
-	let selectedObra = $state<
-		| {
-				id: number;
-				titulo: string;
-				autor: string;
-				fecha: string;
-				imagen_url: string;
-				creado_en: string;
-		  }
-		| undefined
-	>(undefined);
-
-	function openModal(obra: (typeof data.obras)[0]) {
-		selectedObra = obra;
-		document.body.style.overflow = 'hidden';
-	}
-
-	function closeModal() {
-		selectedObra = undefined;
-		document.body.style.overflow = 'auto';
-	}
-</script>
-
-<div class="space-y-12">
-	<div class="space-y-4 text-center">
-		<h2 class="font-serif text-4xl font-bold text-stone-900">Colección del Museo</h2>
-		<p class="mx-auto max-w-2xl text-stone-600">
-			Explore nuestra selección de obras de arte digitales. Cada pieza cuenta una historia única de
-			nuestra herencia y creatividad.
-		</p>
-	</div>
-
-	{#if data.obras.length === 0}
-		<div class="rounded-lg border-2 border-dashed border-stone-300 bg-stone-100 py-20 text-center">
-			<p class="text-lg text-stone-500">No hay obras en la galería todavía.</p>
-			<a href="/subir" class="mt-4 inline-block font-bold text-stone-900 hover:underline">
-				Sé el primero en subir una obra &rarr;
-			</a>
-		</div>
-	{:else}
-		<div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-			{#each data.obras as obra (obra.id)}
-				<button
-					onclick={() => openModal(obra)}
-					class="group overflow-hidden rounded-lg border border-stone-200 bg-white text-left shadow-sm transition-all duration-300 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
-				>
-
-					<article>
-						<div class="aspect-[4/3] overflow-hidden bg-stone-200">
-							<img
-								src={obra.imagen_url}
-								alt={obra.titulo}
-								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
-						</div>
-						<div class="space-y-2 p-6">
-							<h3 class="font-serif text-xl font-bold text-stone-800">{obra.titulo}</h3>
-							<div class="flex flex-col text-sm text-stone-600">
-								<span class="font-medium">{obra.autor}</span>
-								<span
-									>{new Date(obra.fecha).toLocaleDateString('es-CO', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric'
-									})}</span
-								>
-							</div>
-						</div>
-					</article>
-				</button>
-			{/each}
-		</div>
-	{/if}
-</div>
-
-{#if selectedObra}
-	<div
-		class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/90 p-4 transition-opacity duration-300"
-		onclick={closeModal}
-		onkeydown={(e) => e.key === 'Escape' && closeModal()}
-		role="button"
-		tabindex="0"
+<div class="space-y-12 md:space-y-16">
+	<!-- Hero -->
+	<section
+		class="relative overflow-hidden rounded-2xl bg-stone-900 px-6 py-12 text-center text-stone-50 md:py-20"
 	>
-		<div
-			class="relative max-h-full max-w-5xl overflow-hidden rounded-lg bg-white shadow-2xl"
-			onclick={(e) => e.stopPropagation()}
-			onkeydown={(e) => e.stopPropagation()}
-			role="presentation"
-		>
-			<button
-				onclick={closeModal}
-				class="absolute top-4 right-4 z-10 rounded-full bg-stone-900/50 p-2 text-white transition-colors hover:bg-stone-900"
-				aria-label="Cerrar modal"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
+		<div class="relative z-10 mx-auto max-w-3xl space-y-4 md:space-y-6">
+			<h2 class="font-serif text-3xl font-bold md:text-5xl">MAMB</h2>
+			<p class="text-lg font-medium text-stone-300 md:text-2xl">
+				Museo de Arte Moderno de Barranquilla
+			</p>
+			<p class="mx-auto max-w-xl text-base text-stone-400 md:text-lg">
+				Centro cultural privado dedicado a promover el arte y la cultura en la región caribeña de
+				Colombia desde 1994.
+			</p>
+			<div class="pt-4">
+				<a
+					href="/galeria"
+					class="inline-block rounded-md bg-stone-50 px-6 py-3 text-base font-bold text-stone-900 transition-colors hover:bg-stone-200 md:px-8 md:py-4 md:text-lg"
 				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M6 18L18 6M6 6l12 12"
-					/>
-				</svg>
-			</button>
-
-			<div class="flex flex-col md:flex-row">
-				<div class="bg-stone-200 md:max-w-[70%]">
-					<img
-						src={selectedObra.imagen_url}
-						alt={selectedObra.titulo}
-						class="h-auto w-full object-contain"
-					/>
-				</div>
-				<div class="flex flex-col justify-center p-8 md:max-w-[30%]">
-					<h3 class="font-serif text-3xl font-bold text-stone-900">{selectedObra.titulo}</h3>
-					<div class="mt-4 space-y-2">
-						<p class="text-lg font-medium text-stone-700">{selectedObra.autor}</p>
-						<p class="text-stone-500">
-							{new Date(selectedObra.fecha).toLocaleDateString('es-CO', {
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric'
-							})}
-						</p>
-					</div>
-					<div class="mt-8 border-t border-stone-100 pt-6">
-						<p class="text-sm text-stone-400 italic">Parte de la colección digital permanente.</p>
-					</div>
-				</div>
+					Ver Galería
+				</a>
 			</div>
 		</div>
-	</div>
-{/if}
+	</section>
+
+	<!-- About -->
+	<section class="mx-auto max-w-4xl space-y-4 md:space-y-6">
+		<h3 class="font-serif text-2xl font-bold text-stone-900 md:text-3xl">Sobre el Museo</h3>
+		<div class="space-y-4 leading-relaxed text-stone-700 md:text-lg">
+			<p>
+				El Museo de Arte Moderno de Barranquilla (MAMB) es un centro cultural privado de
+				Barranquilla. Fue inaugurado en 1994, aunque funcionaba desde 1974, con diversas
+				exposiciones artísticas a nivel nacional e internacional.
+			</p>
+			<p>
+				El escenario cultural cuenta además con una biblioteca y un auditorio, también una moderna
+				sala de exhibición, con obras de importantes artistas como Fernando Botero, Karel Appel,
+				Ángel Loochkartt, Enrique Grau, Alejandro Obregón, Salvador Dalí, entre otros. El museo
+				también realiza actividades como festivales, arte urbano, charlas y labores educativas y
+				reuniones familiares, todas enfocadas a promover la cultura y el arte.
+			</p>
+			<p>
+				Su fundadora y directora es María Eugenia Castro. Para 2024 fue designada la comunicadora
+				social y gestora cultural Diana Acosta Miranda como gerente de la institución luego de 16
+				años como funcionaria pública. Ya había hecho parte del equipo del MAMB como Directora de
+				Marketing, entre los años 2004 y 2007, y vuelve en medio del proceso de reactivación de la
+				institución y la construcción de la nueva sede en el centro de la ciudad.
+			</p>
+		</div>
+	</section>
+
+	<!-- Colección -->
+	<section class="mx-auto max-w-4xl space-y-4 md:space-y-6">
+		<h3 class="font-serif text-2xl font-bold text-stone-900 md:text-3xl">Colección</h3>
+		<div class="space-y-4 leading-relaxed text-stone-700 md:text-lg">
+			<p>
+				Contiene más de 500 obras y forma parte de la Asociación Colombiana de Museos, también
+				participa activamente en diversos eventos culturales como el Encuentro Iberoamericano de
+				Museos, la Semana del Patrimonio, entre otros.
+			</p>
+			<p>
+				Estaba previsto que antes de finalizar 2015, el Museo de Arte Moderno de Barranquilla sería
+				reubicado definitivamente en el antiguo Parque Cultural del Caribe. El proyecto estuvo
+				respaldado por el presidente Juan Manuel Santos, mientras que otros entes del gobierno como
+				el Ministerio de Cultura y el Departamento Nacional de Planeación intervienen en los
+				estudios.
+			</p>
+			<p>
+				Dentro de las nuevas instalaciones del Museo de Arte Moderno de Barranquilla se ubicará el
+				mural <em>Cosas del aire</em> del pintor Alejandro Obregón, que «será el eje de los cinco pisos
+				de recorrido que tendrá el Mamb».
+			</p>
+		</div>
+	</section>
+
+	<!-- Visit -->
+	<section class="mx-auto max-w-4xl space-y-4 md:space-y-6">
+		<h3 class="font-serif text-2xl font-bold text-stone-900 md:text-3xl">Visítanos</h3>
+		<div class="space-y-4 leading-relaxed text-stone-700 md:text-lg">
+			<p>
+				Durante 18 años el Museo de Arte Moderno de Barranquilla estuvo en el edificio de la carrera
+				56 # 74 - 22. En 2022 debió abandonar la edificación dada en comodato por Terpel y se
+				encuentra a la espera de ser reubicado en la nueva sede en predios del antiguo Parque
+				Cultural del Caribe.
+			</p>
+			<p>
+				En 2025, gracias a la colaboración de Bancolombia, el Museo retomó sus actividades en una
+				sede temporal donde ha logrado exponer alguna de sus obras más importantes, continuar con
+				las actividades educativas y establecer espacios de reflexión y encuentro en torno al arte.
+			</p>
+			<div class="rounded-lg border border-stone-200 bg-white p-6 md:p-8">
+				<h4 class="mb-2 font-serif text-lg font-bold text-stone-800 md:text-xl">Sede Temporal</h4>
+				<p class="text-stone-600">
+					Calle 76 # 54-11, primer piso del edificio World Trade Center, Barranquilla.
+				</p>
+			</div>
+			<p>
+				La inversión para el traslado al complejo cultural es de $20 000 000 000. La nueva sede
+				consta de seis plantas y 3500 metros cuadrados; el arquitecto Giancarlo Mazzanti fue el
+				encargado de su diseño. En 2024, la Alcaldía asumió la continuidad de la tercera fase, luego
+				de su estancamiento a razón de diversos asuntos jurídicos por la quiebra del Museo del
+				Caribe. Esta nueva infraestructura tendrá un auditorio, una tienda cultural, varias salas de
+				exhibición y la cinemateca. El 12 de marzo de 2026, en el lobby se terminó de reubicar el
+				mural "Cosas del Aire" de Alejandro Obregón.
+			</p>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="text-center">
+		<a
+			href="/galeria"
+			class="inline-block rounded-md bg-stone-900 px-6 py-3 text-base font-bold text-stone-50 transition-colors hover:bg-stone-800 md:px-8 md:py-4 md:text-lg"
+		>
+			Explorar la Galería
+		</a>
+	</section>
+</div>

@@ -33,6 +33,6 @@ export const actions = {
 			return fail(500, { error: 'Error al guardar la obra de arte' });
 		}
 
-		throw redirect(303, '/');
+		throw redirect(303, '/galeria');
 	}
 };
