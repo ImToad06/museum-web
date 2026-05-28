@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-blue: #1E3A8A;
+  --color-brand-blue-light: #2563EB;
+  --color-brand-grey: #F3F4F6;
+  --color-brand-grey-dark: #9CA3AF;
+  --color-background: #FFFFFF;
+  --color-foreground: #111827;
+  --color-surface: #F3F4F6;
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  -webkit-touch-callout: none;
+}
+
+input, textarea, [contenteditable] {
+  -webkit-touch-callout: default;
+}
