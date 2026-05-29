@@ -72,12 +72,13 @@ export default function UploadPage() {
 
   const handleStyleSelect = async (styleId: string) => {
     setSelectedStyle(styleId);
-    if (imgRef.current) {
-      const style = styles.find((s) => s.id === styleId);
-      await applyStyle(imgRef.current, style?.slug || "");
-    }
     setDirection(1);
     setStep("Preview");
+    if (imgRef.current) {
+      const style = styles.find((s) => s.id === styleId);
+      const styleImageSrc = style?.preview_url || `/styles/${style?.slug}.jpg`;
+      await applyStyle(imgRef.current, styleImageSrc, style?.slug);
+    }
   };
 
   const handleSubmit = async () => {

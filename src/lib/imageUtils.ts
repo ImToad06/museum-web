@@ -8,7 +8,12 @@ const COMPRESSION_OPTIONS = {
 } as const;
 
 export async function compressImage(file: File): Promise<File> {
-  return imageCompression(file, COMPRESSION_OPTIONS);
+  const compressed = await imageCompression(file, COMPRESSION_OPTIONS);
+  
+  const baseName = file.name.replace(/\.[^/.]+$/, "");
+  const newName = `${baseName}.webp`;
+  
+  return new File([compressed], newName, { type: "image/webp" });
 }
 
 export function fileToDataUrl(file: File): Promise<string> {
